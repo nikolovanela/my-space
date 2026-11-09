@@ -12,8 +12,8 @@ var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
 
 // Конекцијата и JWT клучот доаѓаат од user-secrets (локално) или env варијабли (на сервер).
-var connection = config.GetConnectionString("Default")
-    ?? throw new InvalidOperationException("Недостасува ConnectionStrings:Default (види README).");
+var connection = ConnectionString.Normalize(config.GetConnectionString("Default")
+    ?? throw new InvalidOperationException("Недостасува ConnectionStrings:Default (види README)."));
 var jwtKey = config["Jwt:Key"];
 if (string.IsNullOrWhiteSpace(jwtKey) || jwtKey.Length < 32)
     throw new InvalidOperationException("Jwt:Key мора да има барем 32 знаци (види README).");

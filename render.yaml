@@ -1,0 +1,20 @@
+# Render Blueprint: Dashboard -> New -> Blueprint -> избери го ова repo.
+services:
+  - type: web
+    name: my-space
+    runtime: docker
+    plan: free
+    region: frankfurt
+    branch: main
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      # Connection string од Neon (postgresql://...). Се внесува рачно при креирање.
+      - key: ConnectionStrings__Default
+        sync: false
+      # Render сам генерира случаен таен клуч.
+      - key: Jwt__Key
+        generateValue: true
+      # Стави "false" откако ќе си ја направиш сметката.
+      - key: Auth__AllowRegistration
+        value: "true"

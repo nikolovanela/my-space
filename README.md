@@ -85,6 +85,18 @@ cd frontend && npm run build
 
 Ова го гради React-от во `backend/MySpace.Api/wwwroot`, па ASP.NET Core ги служи и API-то и страницата на една адреса.
 
+## Deploy: Render (бесплатно) + Neon (бесплатна база)
+
+`Dockerfile` го гради React-от и .NET API-то во еден контејнер. `render.yaml` го опишува сервисот.
+
+1. **Neon** (neon.tech): нов проект, регион Frankfurt. Копирај го *connection string* (`postgresql://...sslmode=require`).
+2. **Render** (render.com): најави се со GitHub, *New > Blueprint*, избери го `my-space` repo-то.
+3. Кога ќе побара `ConnectionStrings__Default`, залепи го стрингот од Neon. `Jwt__Key` Render го генерира сам.
+4. Чекај да заврши build-от (првиот пат неколку минути) и отвори го линкот `https://my-space-xxxx.onrender.com`.
+5. Регистрирај се, а потоа во Render > Environment стави `Auth__AllowRegistration` = `false`.
+
+Секој `git push` на `main` автоматски прави нов deploy. Бесплатниот сервис заспива по 15 минути без активност, па првото отворање трае околу минута.
+
 ## API
 
 | Метод | Патека | Што прави |
